@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException
-from schemas import TextRequest, TextAnalysisResponse
-from service import analyze_text
+from schemas import ColorRequest, ColorConvertResponse
+from service import convert_color
 
-router = APIRouter(prefix="/text", tags=["text"])
+router = APIRouter(prefix="/color", tags=["color"])
 
 
-@router.post("/analyze", response_model=TextAnalysisResponse)
-def analyze(data: TextRequest):
-    if not data.text.strip():
-        raise HTTPException(status_code=400, detail="Текст не может быть пустым")
-    result = analyze_text(data.text)
+@router.post("/convert", response_model=ColorConvertResponse)
+def convert(data: ColorRequest):
+    if not data.color.strip():
+        raise HTTPException(status_code=400, detail="Цвет не может быть пустым")
+    result = convert_color(data.color.strip())
     return result
